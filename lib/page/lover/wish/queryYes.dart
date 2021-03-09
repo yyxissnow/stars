@@ -40,7 +40,7 @@ class _WishQueryYesState extends State<WishQueryYes> {
           wishYes.add({
             "id": item["id"],
             "content": item["content"],
-            "time": int.parse(item["time"]) * 1000 //10位时间戳转13位
+            "time": item["time"] * 1000 //10位时间戳转13位
           });
         });
       }

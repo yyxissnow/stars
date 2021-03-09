@@ -66,7 +66,10 @@ class _AddArticleState extends State<AddArticle> {
           }).then((body) {
         if (body != null && body["code"] == 20000) {
           showMsg("发表成功");
-          Navigator.pop(context);
+          Navigator.pushNamed(context, "/love");
+          //showMsg("发表成功");
+          //Navigator.pushReplacementNamed(context, '/article/recommend');
+          //Navigator.pop(context, true);
         }
       });
     } else {

@@ -17,6 +17,7 @@ class _RecommendState extends State<Recommend> {
   void initState() {
     super.initState();
     loading();
+    //getRecommend();
   }
 
   Future getRecommend() async {
@@ -26,7 +27,7 @@ class _RecommendState extends State<Recommend> {
       for (dynamic item in data) {
         setState(() {
           recommendArticle.add({
-            "user_avatar": address + ":8102/static/" + item["user_avatar"],
+            "user_avatar": address + ":8004/static/" + item["user_avatar"],
             //my["avatar"] = address + ":9001/static" + avatar;
             "user_name": item["user_name"],
             "content": item["content"],
@@ -34,6 +35,8 @@ class _RecommendState extends State<Recommend> {
             "likes": item["likes"],
             "comments": item["comments"],
             "picture": item["picture"],
+            "phone": item["phone"],
+            "lines": item["line_num"]
           });
         });
         //print(recommendArticle);
@@ -61,28 +64,28 @@ class _RecommendState extends State<Recommend> {
       },
       child: Column(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Container(
-                height: SizeConfig.screenHeight * 0.05,
-                width: SizeConfig.screenWidth * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                        icon: new Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                        ),
-                        hintText: "大家都在搜",
-                        border: InputBorder.none),
-                  ),
-                )),
-          ),
+          // Container(
+          //   margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          //   child: Container(
+          //       height: SizeConfig.screenHeight * 0.05,
+          //       width: SizeConfig.screenWidth * 0.8,
+          //       decoration: BoxDecoration(
+          //         color: Colors.grey[300],
+          //         borderRadius: BorderRadius.circular(20),
+          //       ),
+          //       child: Container(
+          //         margin: EdgeInsets.only(left: 10),
+          //         child: TextFormField(
+          //           decoration: new InputDecoration(
+          //               icon: new Icon(
+          //                 Icons.search,
+          //                 color: Colors.grey,
+          //               ),
+          //               hintText: "大家都在搜",
+          //               border: InputBorder.none),
+          //         ),
+          //       )),
+          // ),
           Expanded(
             child: ListView(
               //shrinkWrap: true,
@@ -91,6 +94,28 @@ class _RecommendState extends State<Recommend> {
                 // SizedBox(
                 //   height: 10,
                 // ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Container(
+                      height: SizeConfig.screenHeight * 0.05,
+                      width: SizeConfig.screenWidth * 0.8,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: TextFormField(
+                          decoration: new InputDecoration(
+                              icon: new Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              hintText: "大家都在搜",
+                              border: InputBorder.none),
+                        ),
+                      )),
+                ),
                 hotSerch(),
                 Container(
                   //height: SizeConfig.screenHeight * 1,
@@ -140,7 +165,16 @@ class _RecommendState extends State<Recommend> {
                                         ),
                                         onTap: () {
                                           Navigator.pushNamed(
-                                              context, "/userInfo");
+                                              context, "/userInfo",
+                                              arguments: {
+                                                "name": recommendArticle[index]
+                                                    ["user_name"],
+                                                "avatar":
+                                                    recommendArticle[index]
+                                                        ["user_avatar"],
+                                                "phone": recommendArticle[index]
+                                                    ["phone"],
+                                              });
                                         },
                                       ),
                                     ),
@@ -211,6 +245,7 @@ class _RecommendState extends State<Recommend> {
                                 ),
                               ),
                               Container(
+                                width: double.maxFinite,
                                 alignment: Alignment.topLeft,
                                 margin: EdgeInsets.fromLTRB(12, 0, 0, 0),
                                 child: Text(
@@ -221,8 +256,23 @@ class _RecommendState extends State<Recommend> {
                                     fontSize: 17,
                                     color: Colors.black87,
                                   ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
+                              recommendArticle[index]["lines"] > 3
+                                  ? Container(
+                                      margin: EdgeInsets.fromLTRB(12, 0, 0, 0),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "……查看全文",
+                                        style: TextStyle(
+                                            color: Colors.orange,
+                                            decoration:
+                                                TextDecoration.underline),
+                                      ),
+                                    )
+                                  : Container(),
                               recommendArticle[index]["picture"] == ""
                                   ? Container()
                                   : Container(
@@ -233,7 +283,7 @@ class _RecommendState extends State<Recommend> {
                                       margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                       child: Image.network(
                                         address +
-                                            ":8102/static/" +
+                                            ":8004/static/" +
                                             recommendArticle[index]["picture"],
                                         fit: BoxFit.cover,
                                         width: double.maxFinite,

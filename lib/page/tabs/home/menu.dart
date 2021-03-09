@@ -32,8 +32,8 @@ class _MenuState extends State<Menu> {
           receiveInfo.add({
             "name": item["name"],
             "content": item["content"],
-            "time": int.parse(item["time"]) * 1000,
-            "avatar": address + ":8101/static" + avatar,
+            "time": item["time"] * 1000,
+            "avatar": address + ":8005/static" + avatar,
           });
         });
       }

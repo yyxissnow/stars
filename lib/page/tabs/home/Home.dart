@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               //       child: Text("请访问别处看看"),
               //     ),
               //   )
-              : my["actor"] == 1
+              : my["actor"] == 0
                   ? singleHome(context, controller)
                   : loverHome(context, controller),
 

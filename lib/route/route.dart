@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stars/page/Tabs.dart';
 import 'package:stars/page/lover/memorialize/memorialize.dart';
 import 'package:stars/page/lover/private/private.dart';
+import 'package:stars/page/lover/reminder/addReminder.dart';
+import 'package:stars/page/lover/reminder/queryReminder.dart';
 import 'package:stars/page/lover/reminder/reminder.dart';
 import 'package:stars/page/lover/wish/query.dart';
 import 'package:stars/page/lover/wish/queryNo.dart';
@@ -9,7 +11,9 @@ import 'package:stars/page/tabs/NewPerson.dart';
 import 'package:stars/page/tabs/home/Home.dart';
 import 'package:stars/page/tabs/lover/Lover.dart';
 import 'package:stars/page/tabs/Person.dart';
+import 'package:stars/page/tabs/lover/loverInfo/cicle/circle.dart';
 import 'package:stars/page/tabs/lover/loverInfo/recommend/addArticle.dart';
+import 'package:stars/page/tabs/lover/loverInfo/recommend/recommend.dart';
 import 'package:stars/page/user/newSignIn/newSignIn.dart';
 import 'package:stars/page/user/newSignIn/sign_up_page_2.dart';
 import 'package:stars/page/user/signIn.dart';
@@ -36,11 +40,7 @@ List oneselfArticle = [];
 //悄悄话
 List private = [];
 //备忘录
-List reminder = [
-  {"id": 1, "content": "记得每天早上一个鸡蛋", "time": 1607846651000},
-  {"id": 2, "content": "程程不吃香菜", "time": 1607846651000},
-  {"id": 3, "content": "程程喜欢紫色", "time": 1607846651000}
-];
+List reminder = [];
 //纪念日
 List memorialize = [
   {"id": 1, "content": "第一次吃火锅", "time": 1607846651000},
@@ -54,7 +54,7 @@ final Map<String, WidgetBuilder> routes = {
   "/home": (context) => HomePage(),
   "/love": (context) => LovePage(),
   "/person": (context) => PersonPage(),
-  '/userInfo': (context) => UserInfo(),
+  '/userInfo': (context, {arguments}) => UserInfo(arguments: arguments),
   "/wish/query": (context) => WishQuery(),
   "/wish/query_no": (context) => WishQueryNo(),
   "/private": (context) => PrivateChat(),
@@ -63,6 +63,9 @@ final Map<String, WidgetBuilder> routes = {
   "/signUp_2": (context) => Sign_up_page_2(),
   "/reminder": (context) => Reminder(),
   "/memorialize": (context) => Memorialize(),
+  "/addReminder": (context) => AddReminder(),
+  "/queryReminder": (context, {arguments}) =>
+      QueryReminder(arguments: arguments),
 };
 
 var onGenerateRoute = (RouteSettings settings) {

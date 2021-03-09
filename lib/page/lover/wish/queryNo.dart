@@ -28,7 +28,7 @@ class _WishQueryNoState extends State<WishQueryNo> {
           wishNo.add({
             "id": item["id"],
             "content": item["content"],
-            "time": int.parse(item["time"]) * 1000
+            "time": item["time"] * 1000
           });
         });
       }

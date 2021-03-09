@@ -4,7 +4,8 @@ import 'package:stars/page/tabs/lover/loverInfo/question/question.dart';
 import 'package:stars/route/route.dart';
 
 class UserInfo extends StatefulWidget {
-  UserInfo({Key key}) : super(key: key);
+  final arguments;
+  UserInfo({Key key, this.arguments}) : super(key: key);
 
   @override
   _UserInfoState createState() => _UserInfoState();
@@ -12,146 +13,152 @@ class UserInfo extends StatefulWidget {
 
 class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
   TabController _tabController;
-
+  dynamic arguments;
   void initState() {
     super.initState();
+    arguments = widget.arguments;
     _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: SafeArea(
+      child: Column(
         children: <Widget>[
+          //
           Container(
+            height: MediaQuery.of(context).size.height * 0.35,
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("images/bg_4.jpg"), fit: BoxFit.cover)),
-            child: Stack(
+              image: DecorationImage(
+                image: AssetImage("images/person_bg_top.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.chevron_left,
-                        size: 40,
-                        color: Color.fromRGBO(140, 204, 202, 1),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      }),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(15, 90, 0, 0),
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
-                        child: ClipOval(
-                          child: Image.network(
-                              my == null
-                                  ? "images/boji_girl.png"
-                                  : my["avatar"],
-                              height: 60,
-                              width: 60,
-                              fit: BoxFit.cover),
+                        alignment: Alignment.topRight,
+                        margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
+                        child: InkWell(
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(5, 0, 5, 8),
-                        child: Image.asset(
-                          "images/love_jian.png",
-                          fit: BoxFit.cover,
-                          height: 50,
-                          width: 150,
-                        ),
-                      ),
-                      Container(
-                        child: ClipOval(
-                          child: Image.network(
-                              my == null ? "images/boji_boy.png" : my["avatar"],
-                              height: 60,
-                              width: 60,
-                              fit: BoxFit.cover),
+                        alignment: Alignment.topRight,
+                        margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
+                        child: InkWell(
+                          child: Icon(
+                            Icons.format_list_bulleted,
+                            size: 30,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.fromLTRB(15, 160, 0, 0),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Jupiter",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
+                  // alignment: Alignment.bottomCenter,
+                  margin: EdgeInsets.only(top: 30),
+                  child: ClipOval(
+                    child: Image.network(
+                      arguments == null ? "" : arguments["avatar"],
+                      // my == null
+                      //     ? "http://172.20.10.13:9001/static/avatarImg/2020-11-15_17381366118.png"
+                      //     : my["avatar"],
+                      height: 60,
+                      width: 60,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 7),
+                  child: Text(
+                    arguments == null ? "xxx" : arguments["name"],
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        decoration: BoxDecoration(
+                          color: Colors.orange[200],
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.cake,
-                                color: Colors.pink,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  "5月13日",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
+                        child: Row(
                           children: <Widget>[
                             Container(
-                              child: Text(
-                                "关注 8",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ),
+                              child: Icon(Icons.person_add),
                             ),
                             SizedBox(
-                              width: 15,
+                              width: 5,
                             ),
                             Container(
-                              child: Text(
-                                "粉丝 20",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ),
+                              child: Text("添加关注"),
                             )
                           ],
-                        )
-                      ],
-                    ))
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        decoration: BoxDecoration(
+                          color: Colors.orange[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              child: Icon(Icons.wc),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              child: Text("恋爱邀请"),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          //
           Container(
             margin: EdgeInsets.fromLTRB(8, 0, 8, 10),
             child: TabBar(
               indicator: BoxDecoration(
-                color: Color.fromRGBO(140, 204, 202, 1),
+                color: Color.fromRGBO(224, 252, 226, 1),
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
               ),
-              unselectedLabelColor: Colors.black,
-              labelColor: Colors.green[100],
+              unselectedLabelColor: Colors.black54,
+              labelColor: Colors.black,
               indicatorColor: Colors.green[100],
               controller: _tabController,
               tabs: <Widget>[
@@ -169,7 +176,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
               controller: _tabController,
               children: <Widget>[
                 Container(
-                  child: Circle(),
+                  child: Circle(arguments["phone"]),
                 ),
                 Container(
                   child: Question(),
@@ -179,6 +186,6 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
           )
         ],
       ),
-    );
+    ));
   }
 }

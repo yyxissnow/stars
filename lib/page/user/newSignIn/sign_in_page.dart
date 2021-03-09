@@ -43,13 +43,13 @@ class _SignInPageState extends State<SignInPage> {
           String avatar = data["avatar"];
           avatar = avatar.substring(5, avatar.length);
           my = new Map();
-          if (data["actor"] == 2) {
+          if (data["actor"] == 1) {
             my["day"] = data["day"].toString();
             my["lover_name"] = data["lover_name"];
           }
           setState(() {
             //my = new Map();
-            my["avatar"] = address + ":8101/static" + avatar;
+            my["avatar"] = address + ":8005/static" + avatar;
             my["name"] = data["name"];
             my["id"] = data["id"];
             my["phone"] = data["phone"];

@@ -5,6 +5,7 @@ import 'package:stars/class/myClass.dart';
 import 'package:stars/route/route.dart';
 import 'package:stars/widget/dialog/netLoadingDialog.dart';
 import 'package:stars/control/control.dart';
+import 'package:stars/widget/wiget/myWidget.dart';
 
 DateTime dateWishTime = new DateTime.now();
 bool _wishAccomplish = false;
@@ -184,6 +185,7 @@ class WishAddDialog extends Dialog {
                                     outsideDismiss: false,
                                   );
                                 }).then((data) {
+                              // showMsg("发表成功");
                               Navigator.pushReplacementNamed(
                                   context, '/wish/query');
                             });

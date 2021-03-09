@@ -5,28 +5,33 @@ import 'package:stars/control/control.dart';
 import 'package:stars/route/route.dart';
 
 class Circle extends StatefulWidget {
-  Circle({Key key}) : super(key: key);
+  String user_phone;
+  Circle(this.user_phone);
 
   @override
   _CircleState createState() => _CircleState();
 }
 
 class _CircleState extends State<Circle> {
+  String phone;
   @override
   void initState() {
+    phone = widget.user_phone;
     getRecommend();
     super.initState();
+    //phone = widget.user_phone;
+    //print(phone);
     //getRecommend();
   }
 
   Future getRecommend() async {
-    var data = await getOneselfArticledGet();
+    var data = await getOneselfArticledGet(phone);
     if (data != null) {
       oneselfArticle.clear();
       for (dynamic item in data) {
         setState(() {
           oneselfArticle.add({
-            "user_avatar": address + ":8101/static/" + item["user_avatar"],
+            "user_avatar": address + ":8004/static/" + item["user_avatar"],
             //my["avatar"] = address + ":9001/static" + avatar;
             "user_name": item["user_name"],
             "content": item["content"],
@@ -34,6 +39,7 @@ class _CircleState extends State<Circle> {
             "likes": item["likes"],
             "comments": item["comments"],
             "picture": item["picture"],
+            "lines": item["line_num"]
           });
         });
         //print(recommendArticle);
@@ -171,8 +177,22 @@ class _CircleState extends State<Circle> {
                         fontSize: 17,
                         color: Colors.black87,
                       ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  oneselfArticle[index]["lines"] > 3
+                      ? Container(
+                          margin: EdgeInsets.fromLTRB(12, 0, 0, 0),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "……查看全文",
+                            style: TextStyle(
+                                color: Colors.orange,
+                                decoration: TextDecoration.underline),
+                          ),
+                        )
+                      : Container(),
                   oneselfArticle[index]["picture"] == ""
                       ? Container()
                       : Container(
@@ -182,7 +202,7 @@ class _CircleState extends State<Circle> {
                           margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
                           child: Image.network(
                             address +
-                                ":8102/static/" +
+                                ":8004/static/" +
                                 recommendArticle[index]["picture"],
                             fit: BoxFit.cover,
                             width: double.maxFinite,

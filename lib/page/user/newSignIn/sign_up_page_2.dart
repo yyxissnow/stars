@@ -122,7 +122,7 @@ class _Sign_up_page_2State extends State<Sign_up_page_2> {
         }
         setState(() {
           my = new Map();
-          my["avatar"] = address + ":8101/static" + avatar;
+          my["avatar"] = address + ":8005/static" + avatar;
           my["name"] = data["name"];
           my["id"] = data["id"];
           my["phone"] = data["phone"];

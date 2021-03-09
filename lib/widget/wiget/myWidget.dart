@@ -25,7 +25,7 @@ AssetImage wishBg(con) {
 
 //心愿单卡片
 Widget wishInfoCard(
-    BuildContext context, bool con, String id, String content, int time) {
+    BuildContext context, bool con, int id, String content, int time) {
   return InkWell(
     child: Card(
       shadowColor: Color.fromRGBO(253, 253, 255, 0.9),
