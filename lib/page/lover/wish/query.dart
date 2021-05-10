@@ -24,26 +24,12 @@ class _WishQueryState extends State<WishQuery> with TickerProviderStateMixin {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             leading: Container(
-                // 绘制返回键
-                //margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                //margin: EdgeInsets.all(10), // 设置边距
-                // decoration: BoxDecoration(
-                //   boxShadow: <BoxShadow>[
-                //     BoxShadow(
-                //       offset: Offset(1, 2), // 阴影起始位置
-                //       blurRadius: 5, // 阴影面积
-                //       color: Colors.grey.withOpacity(.4), // 阴影透明度
-                //     )
-                //   ],
-                //   color: Color.fromRGBO(120, 232, 214, 1), // Container背景色
-                //   borderRadius: BorderRadius.all(
-                //     Radius.circular(100.0), // Container设置为圆形
-                //   ),
-                // ),
                 child: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
+                color: Colors.orange[300],
                 size: 20,
               ),
               onPressed: () {
@@ -52,18 +38,19 @@ class _WishQueryState extends State<WishQuery> with TickerProviderStateMixin {
               },
             )),
             automaticallyImplyLeading: false,
-            backgroundColor: Color.fromRGBO(211, 243, 198, 1),
+            backgroundColor: Colors.white,
             title: Row(
               children: <Widget>[
                 Expanded(
                     child: TabBar(
-                  indicatorColor: Colors.green[100],
+                  indicatorColor: Colors.orange[100],
                   tabs: <Widget>[
                     Tab(
                       child: Container(
                         child: Text(
                           "进行中",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.orange[300]),
                         ),
                       ),
                     ),
@@ -71,7 +58,8 @@ class _WishQueryState extends State<WishQuery> with TickerProviderStateMixin {
                       child: Container(
                         child: Text(
                           "已完成",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.orange[300]),
                         ),
                       ),
                     ),
@@ -92,119 +80,91 @@ class _WishQueryState extends State<WishQuery> with TickerProviderStateMixin {
             child: Icon(
               Icons.add,
             ),
-            backgroundColor: Color.fromRGBO(242, 209, 147, 1),
+            backgroundColor: Colors.orange[200],
           ),
           body: TabBarView(
             children: <Widget>[WishQueryNo(), WishQueryYes()],
           ),
-          // body: Column(
-          //   children: <Widget>[
-          //     // SizedBox(
-          //     //   height: 30,
-          //     // ),
-          //     // Row(
-          //     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     //   children: <Widget>[
-          //     //     Container(
-          //     //       child: IconButton(
-          //     //           icon: Icon(
-          //     //             Icons.chevron_left,
-          //     //             size: 40,
-          //     //             color: Color.fromRGBO(140, 204, 202, 1),
-          //     //           ),
-          //     //           onPressed: () {
-          //     //             Navigator.pop(context);
-          //     //           }),
-          //     //     ),
-          //     //     Container(
-          //     //       height: 50,
-          //     //       width: 150,
-          //     //       child: Center(
-          //     //         child: Text(
-          //     //           "心愿单",
-          //     //           style: TextStyle(
-          //     //               fontSize: 20, color: Color.fromRGBO(140, 204, 202, 1)),
-          //     //         ),
-          //     //       ),
-          //     //       decoration: BoxDecoration(
-          //     //         border: Border.all(
-          //     //           color: Color.fromRGBO(140, 204, 202, 1),
-          //     //           width: 3,
-          //     //         ),
-          //     //         borderRadius: BorderRadius.circular(10),
-          //     //       ),
-          //     //     ),
-          //     //     Container(
-          //     //       margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-          //     //       height: 35,
-          //     //       width: 35,
-          //     //       decoration: BoxDecoration(
-          //     //         shape: BoxShape.circle,
-          //     //         border: Border.all(
-          //     //           color: Color.fromRGBO(140, 204, 202, 1),
-          //     //           width: 3,
-          //     //         ),
-          //     //       ),
-          //     //       child: Center(
-          //     //         child: InkWell(
-          //     //           onTap: () {
-          //     //             showDialog(
-          //     //                 context: context,
-          //     //                 builder: (context) {
-          //     //                   return WishAddDialog();
-          //     //                 });
-          //     //           },
-          //     //           child: Icon(
-          //     //             Icons.add,
-          //     //             color: Color.fromRGBO(140, 204, 202, 1),
-          //     //           ),
-          //     //         ),
-          //     //       ),
-          //     //     )
-          //     //   ],
-          //     // ),
-          //     SizedBox(
-          //       height: 25,
-          //     ),
-          //     Container(
-          //       margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
-          //       child: TabBar(
-          //         //indicatorSize: TabBarIndicatorSize.label,
-          //         //indicatorWeight: 5,
-          //         //indicatorWeight: 5,
-          //         indicator: BoxDecoration(
-          //           color: Color.fromRGBO(140, 204, 202, 1),
-          //           borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          //         ),
-          //         unselectedLabelColor: Colors.black,
-          //         labelColor: Colors.green[100],
-          //         indicatorColor: Colors.green[100],
-          //         controller: _tabController,
-          //         tabs: <Widget>[
-          //           Tab(
-          //             text: "进行中",
-          //           ),
-          //           Tab(
-          //             text: "已完成",
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     Expanded(
-          //       child: TabBarView(
-          //         controller: _tabController,
-          //         children: <Widget>[
-          //           Container(
-          //             child: WishQueryNo(),
-          //           ),
-          //           Container(
-          //             child: WishQueryYes(),
-          //           )
-          //         ],
-          //       ),
-          //     )
-          //   ],
-          // ),
         ));
   }
+}
+
+Widget PrivateTopBar() {
+  return Container(
+    margin: EdgeInsets.fromLTRB(10, 5, 0, 5),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+            flex: 6,
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Text(
+                      "旅游",
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(245, 246, 250, 1),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Text(
+                      "生活",
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(245, 246, 250, 1),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Text(
+                      "美食",
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(245, 246, 250, 1),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Text(
+                      "想要做的事",
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromRGBO(245, 246, 250, 1),
+                  ),
+                ),
+              ],
+            )),
+        Expanded(
+            flex: 1,
+            child: Container(
+              child: Icon(
+                Icons.apps,
+                color: Colors.orange[300],
+              ),
+            ))
+      ],
+    ),
+  );
 }

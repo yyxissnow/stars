@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stars/class/myClass.dart';
 import 'package:stars/control/control.dart';
+import 'package:stars/page/Tab_no_art.dart';
 import 'package:stars/page/Tabs.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stars/page/user/newSignIn/theme.dart' as theme;
@@ -26,6 +27,7 @@ class _SignInPageState extends State<SignInPage> {
   FocusNode emailFocusNode = new FocusNode();
   FocusNode passwordFocusNode = new FocusNode();
   FocusScopeNode focusScopeNode = new FocusScopeNode();
+  bool _checkboxItemA = false;
 
   GlobalKey<FormState> _signInFormKey = new GlobalKey();
 
@@ -34,14 +36,14 @@ class _SignInPageState extends State<SignInPage> {
   Future _loading() async {
     var body = await login(_name, _password);
     if (body["code"] == 20000) {
-      phone = body["data"]["phone"];
-      //print(phone);
-      await infoGet(phone).then((data) {
+      await infoGet(id).then((data) {
         //设置等待await 不然会使得_loading销毁的时候infoGet还没有执行完，在setState会报错
         if (data != null) {
           print(data);
           String avatar = data["avatar"];
+          String lover_avatar = data["lover_avatar"];
           avatar = avatar.substring(5, avatar.length);
+          lover_avatar = lover_avatar.substring(5, lover_avatar.length);
           my = new Map();
           if (data["actor"] == 1) {
             my["day"] = data["day"].toString();
@@ -49,7 +51,8 @@ class _SignInPageState extends State<SignInPage> {
           }
           setState(() {
             //my = new Map();
-            my["avatar"] = address + ":8005/static" + avatar;
+            my["avatar"] = data["avatar"];
+            my["lover_avatar"] = data["lover_avatar"];
             my["name"] = data["name"];
             my["id"] = data["id"];
             my["phone"] = data["phone"];
@@ -188,6 +191,43 @@ class _SignInPageState extends State<SignInPage> {
                           //color: Color(0xFF0084ff),
                         ),
                         onPressed: null),
+                  ),
+                ],
+              ),
+              //
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Checkbox(
+                      value: _checkboxItemA,
+                      onChanged: (value) {
+                        setState(() {
+                          _checkboxItemA = value;
+                        });
+                      },
+                      activeColor: Colors.orange[300],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Text("已同意"),
+                      ),
+                      Container(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/agreement");
+                          },
+                          child: Container(
+                            child: Text(
+                              "《隐私政策和用户协议》",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               )
@@ -335,37 +375,43 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
       onTap: () async {
+        if (_checkboxItemA) {
+          if (_signInFormKey.currentState.validate()) {
+            //如果输入都检验通过，则进行登录操作
+            // Scaffold.of(context)
+            //     .showSnackBar(new SnackBar(content: new Text("执行登录操作")));
+            // //调用所有自孩子的save回调，保存表单内容
+            // _SignInFormKey.currentState.save();
+
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return NetLoadingDialog(
+                    requestCallBack: _loading(),
+                    outsideDismiss: false,
+                  );
+                }).then((value) {
+              if (value) {
+                //print("5555");
+                // 登录以后 清空路由
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => TabBarsN()),
+                    (routers) => routers == null);
+              } else {
+                showMsg("用户名或密码错误");
+              }
+            });
+          }
+        } else {
+          showMsg("请同意隐私政策和用户协议");
+        }
+
         // print(_name);
         // print(_password);
         /**利用key来获取widget的状态FormState
               可以用过FormState对Form的子孙FromField进行统一的操作
            */
-        if (_signInFormKey.currentState.validate()) {
-          //如果输入都检验通过，则进行登录操作
-          // Scaffold.of(context)
-          //     .showSnackBar(new SnackBar(content: new Text("执行登录操作")));
-          // //调用所有自孩子的save回调，保存表单内容
-          // _SignInFormKey.currentState.save();
 
-          showDialog(
-              context: context,
-              builder: (context) {
-                return NetLoadingDialog(
-                  requestCallBack: _loading(),
-                  outsideDismiss: false,
-                );
-              }).then((value) {
-            if (value) {
-              //print("5555");
-              // 登录以后 清空路由
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => TabBars()),
-                  (routers) => routers == null);
-            } else {
-              showMsg("用户名或密码错误");
-            }
-          });
-        }
 //          debugDumpApp();
 
         // showDialog(

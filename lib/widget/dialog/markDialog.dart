@@ -1,25 +1,22 @@
-import 'package:date_format/date_format.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
-import 'package:stars/class/myClass.dart';
-import 'package:stars/route/route.dart';
 import 'package:stars/widget/dialog/netLoadingDialog.dart';
+import 'package:flutter/material.dart';
+import 'package:stars/route/route.dart';
+import 'package:stars/class/myClass.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:stars/control/control.dart';
-import 'package:stars/widget/wiget/myWidget.dart';
 
-DateTime dateWishTime = new DateTime.now();
-bool _wishAccomplish = false;
-String _wishState = "未完成";
+bool _markDayType = true;
+int _type = 0;
+Color _diary = Colors.red;
+Color _remind = Colors.grey;
 
-DateTime zeroTime(DateTime time) {
-  return DateTime(time.year, time.month, time.day);
-}
-
-class WishAddDialog extends Dialog {
+class MarkDialog extends Dialog {
   dynamic arguments;
-  WishAddDialog({this.arguments});
+  MarkDialog({this.arguments});
 
-  String _wishName;
+  String _content;
+  int _index = 0;
+  List<int> _days = List(5000);
 
   Future showMyDialog(BuildContext context) {
     return showDialog(
@@ -48,13 +45,11 @@ class WishAddDialog extends Dialog {
                             onPressed: () async {
                               arguments = new Map();
 
-                              arguments["wishName"] = _wishName;
+                              arguments["content"] = _content;
 
-                              arguments["wishTime"] =
-                                  ((dateWishTime.millisecondsSinceEpoch) / 1000)
-                                      .toInt();
+                              arguments["day"] = _index;
 
-                              arguments["wishAccomplish"] = _wishAccomplish;
+                              arguments["type"] = _type;
 
                               arguments["phone"] = my["phone"];
                               arguments["love_id"] = my["love_id"];
@@ -82,7 +77,7 @@ class WishAddDialog extends Dialog {
         type: MaterialType.transparency,
         child: Center(
           child: Container(
-            height: SizeConfig.screenHeight * 0.45,
+            height: SizeConfig.screenHeight * 0.50,
             width: SizeConfig.screenWidth * 0.85,
             //color: Colors.white,
             decoration: BoxDecoration(
@@ -98,7 +93,7 @@ class WishAddDialog extends Dialog {
                           alignment: Alignment.center,
                           child: Container(
                             margin: EdgeInsets.only(top: 4),
-                            child: Text("增加属于你们的心愿",
+                            child: Text("增加你们的纪念日",
                                 style: TextStyle(
                                   fontSize: 18,
                                 )),
@@ -133,16 +128,16 @@ class WishAddDialog extends Dialog {
                               decoration: InputDecoration(
                                 counterText: "",
                                 border: InputBorder.none,
-                                hintText: "\t\t请输入你们的心愿",
+                                hintText: "\t\t请输入你们的纪念内容",
                               ),
                               onChanged: (value) {
                                 // setState(() {
                                 //   _wishName = value;
                                 // });
-                                _wishName = value;
+                                _content = value;
                                 // print(value);
                                 setState(() {
-                                  _wishName = value;
+                                  _content = value;
                                 });
                                 //print(_wishName);
                               },
@@ -154,8 +149,45 @@ class WishAddDialog extends Dialog {
                 SizedBox(
                   height: 25,
                 ),
-                wishTime(),
-                wishState(),
+                Container(
+                  child: Text("请选择时间"),
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight * 0.03,
+                ),
+                Container(
+                  width: double.maxFinite,
+                  height: 50,
+                  child: Swiper(
+                    index: 0,
+                    viewportFraction: 0.33,
+                    itemCount: _days.length,
+                    itemBuilder: (context, index) {
+                      return _index == index
+                          ? Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(index.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color.fromRGBO(24, 24, 24, 1))))
+                          : Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text(index.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color:
+                                          Color.fromRGBO(139, 139, 139, 1))));
+                    },
+                    onIndexChanged: (int index) {
+                      _index = index;
+                    },
+                  ),
+                ),
+                markState(),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                   child: Container(
@@ -165,7 +197,7 @@ class WishAddDialog extends Dialog {
                     width: 120,
                     child: RaisedButton(
                       child: Text(
-                        "提交心愿",
+                        "提交",
                         style: TextStyle(fontSize: 18),
                       ),
                       color: Colors.blue[200],
@@ -175,22 +207,45 @@ class WishAddDialog extends Dialog {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       onPressed: () {
-                        showMyDialog(context).then((value) {
-                          if (value) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return NetLoadingDialog(
-                                    requestCallBack: wishAdd(arguments),
-                                    outsideDismiss: false,
-                                  );
-                                }).then((data) {
-                              // showMsg("发表成功");
-                              Navigator.pushReplacementNamed(
-                                  context, '/wish/query');
-                            });
-                          }
-                        });
+                        if (_type == 0) {
+                          showMyDialog(context).then(
+                            (value) {
+                              if (value) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return NetLoadingDialog(
+                                        requestCallBack: diaryAdd(arguments),
+                                        outsideDismiss: false,
+                                      );
+                                    }).then((data) {
+                                  // showMsg("发表成功");
+                                  Navigator.pushReplacementNamed(
+                                      context, '/memorialize');
+                                });
+                              }
+                            },
+                          );
+                        } else {
+                          showMyDialog(context).then(
+                            (value) {
+                              if (value) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return NetLoadingDialog(
+                                        requestCallBack: remindAdd(arguments),
+                                        outsideDismiss: false,
+                                      );
+                                    }).then((data) {
+                                  // showMsg("发表成功");
+                                  Navigator.pushReplacementNamed(
+                                      context, '/memorialize');
+                                });
+                              }
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -206,75 +261,14 @@ class WishAddDialog extends Dialog {
   void setState(Null Function() param0) {}
 }
 
-class wishTime extends StatefulWidget {
-  wishTime({Key key}) : super(key: key);
+class markState extends StatefulWidget {
+  markState({Key key}) : super(key: key);
 
   @override
-  _wishTimeState createState() => _wishTimeState();
+  _markStateState createState() => _markStateState();
 }
 
-class _wishTimeState extends State<wishTime> {
-  @override
-  void _showDate() {
-    DateTime time = zeroTime(DateTime.now());
-
-    DatePicker.showDatePicker(context,
-        maxDateTime:
-            time.add(Duration(days: 17)).subtract(Duration(minutes: 1)),
-        minDateTime: time,
-        initialDateTime: dateWishTime,
-        dateFormat: 'yyyy年M月d日  EEE,H时:m分',
-        pickerMode: DateTimePickerMode.datetime,
-        locale: DateTimePickerLocale.zh_cn, onCancel: () {
-      print("onCancel");
-    }, onConfirm: (dateTime, List<int> index) {
-      this.setState(() {
-        dateWishTime = dateTime;
-        //print(dateWishTime.millisecondsSinceEpoch);
-      });
-    });
-  }
-
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-      decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: InkWell(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Container(
-              child: Text("选择截止时间",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                  )),
-            ),
-            Container(
-              child: Text(
-                formatDate(
-                    dateWishTime, [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn]),
-              ),
-            )
-          ],
-        ),
-        onTap: _showDate,
-      ),
-    );
-  }
-}
-
-class wishState extends StatefulWidget {
-  wishState({Key key}) : super(key: key);
-
-  @override
-  _wishStateState createState() => _wishStateState();
-}
-
-class _wishStateState extends State<wishState> {
+class _markStateState extends State<markState> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -283,31 +277,38 @@ class _wishStateState extends State<wishState> {
         children: <Widget>[
           Container(
             child: Text(
-              "愿望是否完成",
-              style: TextStyle(fontSize: 18),
+              "纪念日",
+              style: TextStyle(fontSize: 18, color: _diary),
             ),
           ),
           Container(
               child: Switch(
                   activeColor: Colors.white,
                   activeTrackColor: Color.fromRGBO(255, 88, 88, 1),
-                  value: _wishAccomplish,
+                  value: _markDayType,
                   onChanged: (value) async {
-                    if (_wishAccomplish == false) {
+                    if (_markDayType == false) {
                       setState(() {
-                        _wishAccomplish = true;
-                        _wishState = "已完成";
+                        _markDayType = true;
+                        _type = 0;
+                        _diary = Colors.red;
+                        _remind = Colors.grey;
                       });
                     } else {
                       setState(() {
-                        _wishAccomplish = false;
-                        _wishState = "未完成";
+                        _markDayType = false;
+                        _type = 1;
+                        _diary = Colors.grey;
+                        _remind = Colors.red;
                       });
                     }
                   })),
           Container(
-            child: Text("$_wishState"),
-          )
+            child: Text(
+              "提醒日",
+              style: TextStyle(fontSize: 18, color: _remind),
+            ),
+          ),
         ],
       ),
     );

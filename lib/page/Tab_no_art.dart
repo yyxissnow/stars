@@ -7,18 +7,17 @@ import 'package:stars/route/route.dart';
 import 'tabs/home/Home.dart';
 import 'tabs/lover/Lover.dart';
 
-class Tabs extends StatefulWidget {
-  final index;
-  Tabs({Key key, this.index = 0}) : super(key: key);
+class TabNoArt extends StatefulWidget {
+  TabNoArt({Key key}) : super(key: key);
 
   @override
-  _TabsState createState() => _TabsState();
+  _TabNoArtState createState() => _TabNoArtState();
 }
 
-class _TabsState extends State<Tabs> {
+class _TabNoArtState extends State<TabNoArt> {
   int _currentIndex = 0;
 
-  List _pageList = [HomePage(), LovePage(), NewPersonPage()];
+  List _pageList = [HomePage(), NewPersonPage()];
   // void initState() {
   //   getRecommend();
   //   super.initState();
@@ -90,13 +89,6 @@ class _TabsState extends State<Tabs> {
                 ),
               )),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text("广场",
-                style: TextStyle(
-                  fontFamily: "XiaoBai",
-                )),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             title: Text("个人",
                 style: TextStyle(
@@ -109,24 +101,25 @@ class _TabsState extends State<Tabs> {
   }
 }
 
-class TabBars extends StatefulWidget {
-  TabBars({Key key}) : super(key: key);
+class TabBarsN extends StatefulWidget {
+  TabBarsN({Key key}) : super(key: key);
 
   @override
-  _TabBarsState createState() => _TabBarsState();
+  _TabBarsNState createState() => _TabBarsNState();
 }
 
-class _TabBarsState extends State<TabBars> with SingleTickerProviderStateMixin {
+class _TabBarsNState extends State<TabBarsN>
+    with SingleTickerProviderStateMixin {
   TabController tabController;
 
-  List _pageList = [HomePage(), LovePage(), NewPersonPage()];
+  List _pageList = [HomePage(), NewPersonPage()];
   List colors = [
     Color.fromRGBO(255, 210, 149, 1),
-    Color.fromRGBO(255, 210, 149, 1),
+    // Color.fromRGBO(255, 210, 149, 1),
     Color.fromRGBO(255, 210, 149, 1),
   ];
   Color color_a = Color.fromRGBO(245, 149, 149, 1);
-  Color color_b;
+  // Color color_b;
   Color color_c;
 
   int currentIndex = 0;
@@ -134,7 +127,7 @@ class _TabBarsState extends State<TabBars> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 3)
+    tabController = TabController(vsync: this, length: 2)
       ..addListener(() {
         setState(() {
           currentIndex = tabController.index;
@@ -158,11 +151,11 @@ class _TabBarsState extends State<TabBars> with SingleTickerProviderStateMixin {
               size: 45,
               color: color_a,
             ),
-            Icon(
-              Icons.favorite,
-              size: 45,
-              color: color_b,
-            ),
+            // Icon(
+            //   Icons.favorite,
+            //   size: 45,
+            //   color: color_b,
+            // ),
             Icon(
               Icons.account_circle,
               size: 45,
@@ -179,11 +172,6 @@ class _TabBarsState extends State<TabBars> with SingleTickerProviderStateMixin {
                 color_a = Colors.black;
               }
               if (index == 1) {
-                color_b = Color.fromRGBO(245, 149, 149, 1);
-              } else {
-                color_b = Colors.black;
-              }
-              if (index == 2) {
                 color_c = Color.fromRGBO(245, 149, 149, 1);
               } else {
                 color_c = Colors.black;
@@ -198,7 +186,7 @@ class _TabBarsState extends State<TabBars> with SingleTickerProviderStateMixin {
           children: <Widget>[
             _pageList[0],
             _pageList[1],
-            _pageList[2],
+            // _pageList[2],
             // Container(
             //   color: colors[0],
             // ),

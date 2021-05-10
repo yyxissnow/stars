@@ -8,8 +8,8 @@ class Theme {
   // static const Color loginGradientStart = const Color(0xFFfbab66);
   // static const Color loginGradientEnd = const Color(0xFFf7418c);
   static const Color loginGradientStart =
-      const Color.fromRGBO(232, 227, 240, 1);
-  static const Color loginGradientEnd = const Color.fromRGBO(222, 197, 253, 1);
+      const Color.fromRGBO(255, 210, 49, 0.5);
+  static const Color loginGradientEnd = const Color.fromRGBO(255, 183, 77, 0.7);
 
   static const LinearGradient primaryGradient = const LinearGradient(
     colors: const [loginGradientStart, loginGradientEnd],

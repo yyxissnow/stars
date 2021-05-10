@@ -35,7 +35,7 @@ class _QuestionState extends State<Question> {
                                 "TOP  Q1",
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color: Color.fromRGBO(140, 204, 202, 1),
+                                  color: Color.fromRGBO(255, 210, 149, 1),
                                 ),
                               ),
                             ),
@@ -60,7 +60,7 @@ class _QuestionState extends State<Question> {
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color.fromRGBO(140, 204, 202, 1),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -73,7 +73,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.speaker_notes,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "1314个回答",
@@ -85,7 +85,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.favorite,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "352喜欢",
@@ -118,7 +118,7 @@ class _QuestionState extends State<Question> {
                                 "TOP  Q2",
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color: Color.fromRGBO(140, 204, 202, 1),
+                                  color: Color.fromRGBO(255, 210, 149, 1),
                                 ),
                               ),
                             ),
@@ -143,7 +143,7 @@ class _QuestionState extends State<Question> {
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color.fromRGBO(140, 204, 202, 1),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -156,7 +156,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.speaker_notes,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "1203个回答",
@@ -168,7 +168,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.favorite,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "428喜欢",
@@ -201,7 +201,7 @@ class _QuestionState extends State<Question> {
                                 "TOP  Q3",
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color: Color.fromRGBO(140, 204, 202, 1),
+                                  color: Color.fromRGBO(255, 210, 149, 1),
                                 ),
                               ),
                             ),
@@ -226,7 +226,7 @@ class _QuestionState extends State<Question> {
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color.fromRGBO(140, 204, 202, 1),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -239,7 +239,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.speaker_notes,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "1023个回答",
@@ -251,7 +251,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.favorite,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "569喜欢",
@@ -284,7 +284,7 @@ class _QuestionState extends State<Question> {
                                 "TOP  Q4",
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color: Color.fromRGBO(140, 204, 202, 1),
+                                  color: Color.fromRGBO(255, 210, 149, 1),
                                 ),
                               ),
                             ),
@@ -309,7 +309,7 @@ class _QuestionState extends State<Question> {
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color.fromRGBO(140, 204, 202, 1),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -322,7 +322,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.speaker_notes,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "999个回答",
@@ -334,7 +334,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.favorite,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "241喜欢",
@@ -367,7 +367,7 @@ class _QuestionState extends State<Question> {
                                 "TOP  Q5",
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color: Color.fromRGBO(140, 204, 202, 1),
+                                  color: Color.fromRGBO(255, 210, 149, 1),
                                 ),
                               ),
                             ),
@@ -392,7 +392,7 @@ class _QuestionState extends State<Question> {
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color.fromRGBO(140, 204, 202, 1),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -405,7 +405,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.speaker_notes,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "236个回答",
@@ -417,7 +417,7 @@ class _QuestionState extends State<Question> {
                             children: <Widget>[
                               Icon(
                                 Icons.favorite,
-                                color: Color.fromRGBO(140, 204, 202, 1),
+                                color: Color.fromRGBO(255, 210, 149, 1),
                               ),
                               Text(
                                 "58喜欢",

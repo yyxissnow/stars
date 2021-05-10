@@ -108,34 +108,32 @@ class _Sign_up_page_2State extends State<Sign_up_page_2> {
   }
 
   Future getinfo() async {
-    await infoGet(my["phone"]).then((data) {
-      print(data);
-      //设置等待await 不然会使得_loading销毁的时候infoGet还没有执行完，在setState会报错
-      if (data != null) {
-        //print(data);
-        String avatar = data["avatar"];
-        avatar = avatar.substring(5, avatar.length);
-        //my = new Map();
-        if (data["actor"] == 1) {
-          my["day"] = data["day"].toString();
-          my["lover_name"] = data["lover_name"];
+    var body = await login(my["phone"], my["password"]);
+    if (body["code"] == 20000) {
+      await infoGet(id).then((data) {
+        print(data);
+        //设置等待await 不然会使得_loading销毁的时候infoGet还没有执行完，在setState会报错
+        if (data != null) {
+          //print(data);
+          //my = new Map();
+          if (data["actor"] == 1) {
+            my["day"] = data["day"].toString();
+            my["lover_name"] = data["lover_name"];
+          }
+          setState(() {
+            my = new Map();
+            my["avatar"] = data["avatar"];
+            my["name"] = data["name"];
+            my["id"] = data["id"];
+            my["phone"] = data["phone"];
+            my["gender"] = data["gender"];
+            my["age"] = data["age"].toString();
+            my["actor"] = data["actor"];
+          });
+          //print(my);
         }
-        setState(() {
-          my = new Map();
-          my["avatar"] = address + ":8005/static" + avatar;
-          my["name"] = data["name"];
-          my["id"] = data["id"];
-          my["phone"] = data["phone"];
-          my["gender"] = data["gender"];
-          my["age"] = data["age"].toString();
-          my["actor"] = data["actor"];
-          // my["love_id"] = data["love_id"];
-          // my["lover_id"] = data["lover_id"];
-          // my["day"] = data["day"].toString();
-        });
-        //print(my);
-      }
-    });
+      });
+    }
   }
 
 // http://172.20.10.13:9001/static/avatarImg/2020-12-07_12345678915.png
@@ -430,7 +428,7 @@ class _Sign_up_page_2State extends State<Sign_up_page_2> {
                   width: 120,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Color.fromRGBO(225, 206, 249, 1),
+                    color: Color.fromRGBO(255, 183, 77, 0.6),
                   ),
                   child: Container(
                     alignment: Alignment.center,

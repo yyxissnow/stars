@@ -5,6 +5,8 @@ import 'package:stars/page/tabs/lover/loverInfo/question/question.dart';
 import 'package:stars/page/tabs/lover/loverInfo/recommend/recommend.dart';
 import 'package:stars/route/route.dart';
 
+var floatingButton = true;
+
 class LovePage extends StatefulWidget {
   LovePage({Key key}) : super(key: key);
 
@@ -52,16 +54,18 @@ class _LovePageState extends State<LovePage> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            heroTag: "这是个tag_1",
-            onPressed: () {
-              Navigator.pushNamed(context, "/addArticle");
-            },
-            child: Icon(
-              Icons.add,
-            ),
-            backgroundColor: Color.fromRGBO(255, 210, 149, 1),
-          ),
+          // floatingActionButton: floatingButton == true
+          //     ? FloatingActionButton(
+          //         heroTag: "这是个tag_1",
+          //         onPressed: () {
+          //           Navigator.pushNamed(context, "/addArticle");
+          //         },
+          //         child: Icon(
+          //           Icons.add,
+          //         ),
+          //         backgroundColor: Color.fromRGBO(255, 210, 149, 1),
+          //       )
+          //     : Container(),
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -111,7 +115,7 @@ class _LovePageState extends State<LovePage> {
             ),
           ),
           body: TabBarView(
-            children: <Widget>[Recommend(), Circle(phone), Question()],
+            children: <Widget>[Recommend(), Circle(id), Question()],
           ),
         ));
   }

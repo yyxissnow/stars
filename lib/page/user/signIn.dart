@@ -67,13 +67,10 @@ class _SignInState extends State<SignIn> {
   Future _loading() async {
     var body = await login(_name, _password);
     if (body["code"] == 20000) {
-      phone = body["data"]["phone"];
-      await infoGet(phone).then((data) {
+      await infoGet(id).then((data) {
         //设置等待await 不然会使得_loading销毁的时候infoGet还没有执行完，在setState会报错
         if (data != null) {
           //print(data);
-          String avatar = data["avatar"];
-          avatar = avatar.substring(5, avatar.length);
           my = new Map();
           if (data["actor"] == 1) {
             my["day"] = data["day"].toString();
@@ -81,7 +78,7 @@ class _SignInState extends State<SignIn> {
           }
           setState(() {
             //my = new Map();
-            my["avatar"] = address + ":8101/static" + avatar;
+            my["avatar"] = data["avatar"];
             my["name"] = data["name"];
             my["id"] = data["id"];
             my["phone"] = data["phone"];

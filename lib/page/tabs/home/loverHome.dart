@@ -234,7 +234,7 @@ Container loverHome(context, controller) {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, "/private");
+                        Navigator.pushNamed(context, "/chat");
                       },
                       child: Container(
                         height: SizeConfig.screenHeight * 0.13,

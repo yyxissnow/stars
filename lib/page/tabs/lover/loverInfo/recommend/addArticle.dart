@@ -60,13 +60,13 @@ class _AddArticleState extends State<AddArticle> {
           context: context,
           builder: (context) {
             return NetLoadingDialog(
-              requestCallBack: addArticle(_image, len, phone, _content),
+              requestCallBack: addArticle(_image, len, _content),
               outsideDismiss: false,
             );
           }).then((body) {
         if (body != null && body["code"] == 20000) {
           showMsg("发表成功");
-          Navigator.pushNamed(context, "/love");
+          Navigator.pushNamed(context, "/");
           //showMsg("发表成功");
           //Navigator.pushReplacementNamed(context, '/article/recommend');
           //Navigator.pop(context, true);

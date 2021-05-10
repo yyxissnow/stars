@@ -27,13 +27,11 @@ class _MenuState extends State<Menu> {
       for (dynamic item in data) {
         setState(() {
           //wishNo.清空数组
-          String avatar = item["avatar"];
-          avatar = avatar.substring(5, avatar.length);
           receiveInfo.add({
             "name": item["name"],
             "content": item["content"],
             "time": item["time"] * 1000,
-            "avatar": address + ":8005/static" + avatar,
+            "avatar": item["avatar"],
           });
         });
       }

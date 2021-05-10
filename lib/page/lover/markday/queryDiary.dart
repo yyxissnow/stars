@@ -1,66 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:stars/page/lover/wish/query.dart';
-import 'package:stars/route/route.dart';
-import 'package:stars/control/control.dart';
-import 'package:stars/widget/wiget/myWidget.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:stars/class/myClass.dart';
+import 'package:stars/control/control.dart';
+import 'package:stars/route/route.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:stars/widget/wiget/myWidget.dart';
 
-class WishQueryYes extends StatefulWidget {
-  WishQueryYes({Key key}) : super(key: key);
+class DiaryDayQuery extends StatefulWidget {
+  DiaryDayQuery({Key key}) : super(key: key);
 
   @override
-  _WishQueryYesState createState() => _WishQueryYesState();
+  _DiaryDayQueryState createState() => _DiaryDayQueryState();
 }
 
-class _WishQueryYesState extends State<WishQueryYes> {
+class _DiaryDayQueryState extends State<DiaryDayQuery> {
   @override
   void initState() {
     super.initState();
-    //loading();
-    getList();
+    loading();
   }
 
-  // void loading() {
-  //   getList().then((value) {
-  //     setState(() {});
-  //   }).timeout(Duration(milliseconds: 15000), onTimeout: () {
-  //     setState(() {
-  //       //displayText = true;
-  //     });
-  //   });
-  // }
-
   Future getList() async {
-    var data = await wishYesGet(my["love_id"]);
-
+    var data = await diaryDayGet(my["love_id"]);
     if (data != null) {
-      wishYes.clear();
+      diaryDay.clear();
       for (dynamic item in data) {
         setState(() {
           //wishNo.清空数组
-          wishYes.add({
+          diaryDay.add({
             "id": item["id"],
             "content": item["content"],
-            "time": item["time"] * 1000 //10位时间戳转13位
+            "time": item["time"] * 1000,
+            "reminder_day": item["reminder_day"]
           });
         });
       }
     }
   }
 
-  Widget wishYesTig() {
+  void loading() {
+    getList().then((value) {
+      setState(() {});
+    }).timeout(Duration(milliseconds: 15000), onTimeout: () {
+      setState(() {
+        //displayText = true;
+      });
+    });
+  }
+
+  Widget diaryDayTig() {
     return Container(
       child: Center(
-        child: Text("还没有已完成心愿，好好加油哦！", style: TextStyle(fontSize: 18)),
+        child: Text(
+          "还没有纪念日，记得添加哦！",
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     );
   }
 
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return wishYes.length == 0
-        ? wishYesTig()
+    return diaryDay.length == 0
+        ? diaryDayTig()
         : Container(
             color: Colors.white,
             child: Column(
@@ -87,20 +88,22 @@ class _WishQueryYesState extends State<WishQueryYes> {
                         ),
                       )),
                 ),
-                PrivateTopBar(),
+                //PrivateTopBar(),
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.only(top: 8),
                     child: ListView.builder(
-                        itemCount: wishYes.length,
+                        itemCount: diaryDay.length,
                         itemBuilder: (context, index) {
                           return Slidable(
-                            child: wishInfoCard(
-                                context,
-                                true,
-                                wishYes[index]["id"],
-                                wishYes[index]["content"],
-                                wishYes[index]["time"]),
+                            child: markDayInfoCard(
+                              context,
+                              diaryDay[index]["reminder_day"],
+                              diaryDay[index]["id"],
+                              diaryDay[index]["content"],
+                              diaryDay[index]["time"],
+                              0,
+                            ),
                             actionPane: SlidableScrollActionPane(),
                             //actionExtentRatio: 0.25,
                             secondaryActions: <Widget>[

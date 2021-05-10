@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:stars/control/memoy.dart';
 import 'package:stars/page/user/newSignIn/theme.dart' as theme;
 import 'package:stars/route/route.dart';
+import 'package:stars/widget/wiget/myWidget.dart';
 
 /**
  * 注册界面
@@ -20,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
   GlobalKey<FormState> _signInFormKey = new GlobalKey();
   bool isShowPassWord_1 = true;
   bool isShowPassWord_2 = true;
+  bool _checkboxItemA = false;
 
   void initState() {
     // Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -94,14 +96,58 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 onTap: () {
-                  if (_signInFormKey.currentState.validate()) {
-                    loading();
-                    Navigator.pushNamed(context, "/signUp_2");
+                  if (_checkboxItemA) {
+                    if (_signInFormKey.currentState.validate()) {
+                      loading();
+                      Navigator.pushNamed(context, "/signUp_2");
+                    }
+                  } else {
+                    showMsg("请同意隐私政策和用户协议");
                   }
                 },
               ),
               top: MediaQuery.of(context).size.height * 0.36,
-            )
+            ),
+            new Positioned(
+                top: MediaQuery.of(context).size.height * 0.5,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: Checkbox(
+                          value: _checkboxItemA,
+                          onChanged: (value) {
+                            setState(() {
+                              _checkboxItemA = value;
+                            });
+                          },
+                          activeColor: Colors.orange[300],
+                        ),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            child: Text("已同意"),
+                          ),
+                          Container(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, "/agreement");
+                              },
+                              child: Container(
+                                child: Text(
+                                  "《隐私政策和用户协议》",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ))
           ],
         ));
   }

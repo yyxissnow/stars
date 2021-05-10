@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stars/page/tabs/lover/loverInfo/cicle/circle.dart';
 import 'package:stars/page/tabs/lover/loverInfo/question/question.dart';
 import 'package:stars/route/route.dart';
+import 'package:stars/widget/wiget/myWidget.dart';
 
 class UserInfo extends StatefulWidget {
   final arguments;
@@ -117,9 +118,14 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                             SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              child: Text("添加关注"),
-                            )
+                            InkWell(
+                              onTap: () {
+                                showMsg("关注成功");
+                              },
+                              child: Container(
+                                child: Text("添加关注"),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -137,9 +143,14 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                             SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              child: Text("恋爱邀请"),
-                            )
+                            InkWell(
+                              onTap: () {
+                                showMsg("发送成功");
+                              },
+                              child: Container(
+                                child: Text("恋爱邀请"),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -176,7 +187,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
               controller: _tabController,
               children: <Widget>[
                 Container(
-                  child: Circle(arguments["phone"]),
+                  child: Circle(arguments["user_id"]),
                 ),
                 Container(
                   child: Question(),
