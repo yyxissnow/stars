@@ -4,17 +4,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:stars/route/route.dart';
 
-String address = "http://49.235.16.118";
-//172.20.10.13
-//49.235.16.118
-//10.67.212.191
-//172.16.1.189
-//192.168.2.18
-//10.67.82.12
+String address = 
+
 
 //登录
 dynamic login(String name, String pwd) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(url, data: {
     "server_addr": "golang.api.stars.account-api",
@@ -39,7 +34,7 @@ dynamic login(String name, String pwd) async {
 
 //获取个人信息
 Future infoGet(int id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -71,7 +66,7 @@ Future infoGet(int id) async {
 
 //获取未完成心愿单
 Future wishNoGet(dynamic lover_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -103,7 +98,7 @@ Future wishNoGet(dynamic lover_id) async {
 
 //获取完成心愿单
 Future wishYesGet(dynamic lover_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -135,7 +130,7 @@ Future wishYesGet(dynamic lover_id) async {
 
 //创建心愿单
 Future wishAdd(dynamic arguments) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -173,7 +168,7 @@ Future wishAdd(dynamic arguments) async {
 
 //查看消息
 Future getMessage() async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -205,7 +200,7 @@ Future getMessage() async {
 
 //获取动态文章
 Future recommendArticledGet() async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -239,7 +234,7 @@ Future recommendArticledGet() async {
 dynamic addArticle(File image, int len, String content) async {
   var name;
   var path;
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var results = await dio.post(
     url,
@@ -301,7 +296,7 @@ dynamic register(File image, String phone, String password, String names,
     int age, bool sex) async {
   var name;
   var path;
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var results = await dio.post(url, data: {
     "server_addr": "golang.api.stars.account-api",
@@ -337,7 +332,7 @@ dynamic register(File image, String phone, String password, String names,
   //
   // var name;
   // var path;
-  // var url = address + ":8101/register/create";
+  // var url = address + "";
   // var dio = new Dio();
 
   // path = image.path;
@@ -364,7 +359,7 @@ dynamic register(File image, String phone, String password, String names,
 
 //获取我的动态文章
 Future getOneselfArticledGet(int user_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -396,7 +391,7 @@ Future getOneselfArticledGet(int user_id) async {
 
 //获取悄悄话
 Future privateChatGet(int lover_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(url, data: {
     "server_addr": "golang.api.stars.privateChat-api",
@@ -423,7 +418,7 @@ Future privateChatGet(int lover_id) async {
     return null;
   }
 
-  // var url = address + ":9001/api";
+  // var url = address + "";
   // var dio = new Dio();
   // // var result =
   // //     await dio.post(url, data: {"phone": phone, "lover_id": lover_id});
@@ -449,7 +444,7 @@ Future privateChatGet(int lover_id) async {
 
 //增加悄悄话
 Future privateAdd(String user_id, String lover_id, String content) async {
-  var url = address + ":9001/api";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -476,7 +471,7 @@ Future privateAdd(String user_id, String lover_id, String content) async {
 
 //删除悄悄话
 Future privateDelete(String id) async {
-  var url = address + ":9001/api";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -502,7 +497,7 @@ Future privateDelete(String id) async {
 
 //改悄悄话
 Future privateAlter(String id, String content) async {
-  var url = address + ":9001/api";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -528,7 +523,7 @@ Future privateAlter(String id, String content) async {
 
 //获取备忘录
 Future getReminder(String phone) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -560,7 +555,7 @@ Future getReminder(String phone) async {
 
 //添加备忘录
 Future addReminder(String title, String content) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -594,7 +589,7 @@ Future addReminder(String title, String content) async {
 
 //悄悄话聊天
 Future addPrivateChat(String content) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -628,7 +623,7 @@ Future addPrivateChat(String content) async {
 
 //点赞
 Future likeArticle(int article_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -663,7 +658,7 @@ Future likeArticle(int article_id) async {
 
 //获取文章评论
 Future getArticleComment(int article_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -698,7 +693,7 @@ Future getArticleComment(int article_id) async {
 
 //评论文章
 Future commentArticle(int article_id, comment_id, String content) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -736,7 +731,7 @@ Future commentArticle(int article_id, comment_id, String content) async {
 
 //获取纪念日
 Future diaryDayGet(dynamic lover_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -768,7 +763,7 @@ Future diaryDayGet(dynamic lover_id) async {
 
 //获取提醒日
 Future remindDayGet(dynamic lover_id) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -800,7 +795,7 @@ Future remindDayGet(dynamic lover_id) async {
 
 //创建纪念日
 Future diaryAdd(dynamic arguments) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
@@ -837,7 +832,7 @@ Future diaryAdd(dynamic arguments) async {
 
 //创建提醒日
 Future remindAdd(dynamic arguments) async {
-  var url = address + ":9001/stars";
+  var url = address + "";
   var dio = new Dio();
   var result = await dio.post(
     url,
